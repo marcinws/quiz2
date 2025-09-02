@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quiz taktyczny tenis - taktyki psychologiczne</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #f9f9f9;
+  }
+  h1, h2 {
+    text-align: center;
+    color: #2c3e50;
+  }
+  .question {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  .option {
+    display: block;
+    margin: 0.6rem 0;
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  .option:hover {
+    background-color: #eef6fb;
+    border-color: #3498db;
+  }
+  input[type="radio"] {
+    margin-right: 0.7rem;
+  }
+  button {
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+  }
+  button:disabled {
+    background-color: #a3c5e8;
+    cursor: not-allowed;
+  }
+  .feedback {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 5px;
+    white-space: pre-line;
+  }
+  .correct {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  .incorrect {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  #score {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #2c3e50;
+  }
+</style>
+</head>
+<body>
+
+<h1>Quiz taktyczny tenis - taktyki psychologiczne</h1>
+
+<div id="quiz-container">
+  <div id="score">Punkty: 0 / 0</div>
+  <div id="question" class="question"></div>
+  <form id="options-form"></form>
+  <button id="submit-btn" disabled>Sprawdź odpowiedź</button>
+  <div id="feedback" class="feedback" style="display:none;"></div>
+  <button id="next-btn" style="display:none;">Następne pytanie</button>
+</div>
+
+<script>
+const quizData = [
+  {
+    question: 'Twój przeciwnik nagle bierze przerwę medyczną przy break-poincie (Medical Timeout - przerwa medyczna), choć wygląda na zdrowego. Co robi?',
+    options: ['Medical Timeout (przerwa medyczna)','Toilet Break (przerwa na toaletę)','Przedłużanie rytuałów serwisowych (Service Ritual Delay)'],
+    answer: 0,
+    explanation: 'Medical Timeout pozwala na odpoczynek i wybić przeciwnika z rytmu.'
+  },
+  {
+    question: 'Przeciwnik wychodzi po przegranym secie na kilka minut do toalety (Toilet Break - przerwa na toaletę), po powrocie gra agresywniej. Co stosuje?',
+    options: ['Toilet Break (przerwa na toaletę)','Ice the Server (zimny serwis)','Psychologiczne gierki (Mind Games)'],
+    answer: 0,
+    explanation: 'Toilet Break daje reset mentalny i może zmienić momentum meczu.'
+  },
+  {
+    question: 'Przeciwnik bardzo długo przygotowuje się do serwisu, poprawia ręcznik i układa butelkę (Service Ritual Delay - przedłużanie rytuałów serwisowych). Co robi?',
+    options: ['Przedłużanie rytuałów serwisowych (Service Ritual Delay)','Udawanie zmęczenia (Fake Fatigue)','Celowe granie na emocje przeciwnika (Emotional Play)'],
+    answer: 0,
+    explanation: 'Przedłużanie rytuałów spowalnia grę i narzuca własny rytm.'
+  },
+  {
+    question: 'Przeciwnik prosi o nową rakietę po kilku przegranych gemach (Equipment Change - zmiana sprzętu), choć sprzęt jest w porządku. Co robi?',
+    options: ['Zmiany sprzętowe (Equipment Change)','Dyskusje z sędzią (Arguing with Referee)','Ice the Server (zimny serwis)'],
+    answer: 0,
+    explanation: 'Zmiana sprzętu daje krótką przerwę i przerwanie pasma przeciwnika.'
+  },
+  {
+    question: 'Przeciwnik stosuje moonballe, slice’y i drop-shoty, gdy jesteś zdenerwowany (Emotional Play - gra na emocjach). Co robi?',
+    options: ['Celowe granie na emocje przeciwnika (Emotional Play)','Udawanie zmęczenia (Fake Fatigue)','Psychologiczne gierki (Mind Games)'],
+    answer: 0,
+    explanation: 'Taktyka wywołuje frustrację i zmusza do błędów.'
+  },
+  {
+    question: 'Przeciwnik dyskutuje z sędzią o każdym punkcie (Arguing with Referee - dyskusje z sędzią). Co robi?',
+    options: ['Dyskusje z sędzią (Arguing with Referee)','Ice the Server (zimny serwis)','Psychologiczne gierki (Mind Games)'],
+    answer: 0,
+    explanation: 'Zakłóca rytm i koncentrację przeciwnika.'
+  },
+  {
+    question: 'Przeciwnik zwleka między punktami, wyciera ręcznik i wolno chodzi (Slowing Down - spowalnianie gry). Co stosuje?',
+    options: ['Spowalnianie gry pomiędzy punktami (Slowing Down)','Udawanie zmęczenia (Fake Fatigue)','Przedłużanie rytuałów serwisowych (Service Ritual Delay)'],
+    answer: 0,
+    explanation: 'Spowalnianie gry zmienia rytm przeciwnika i zwiększa presję.'
+  },
+  {
+    question: 'Przeciwnik udaje zmęczenie po wymianach, potem przyspiesza w ważnym punkcie (Fake Fatigue - udawanie zmęczenia). Co robi?',
+    options: ['Udawanie zmęczenia lub bólu (Fake Fatigue)','Psychologiczne gierki (Mind Games)','Ice the Server (zimny serwis)'],
+    answer: 0,
+    explanation: 'Uśpienie czujności przeciwnika i zaskoczenie w kluczowym momencie.'
+  },
+  {
+    question: 'Przeciwnik patrzy Ci w oczy i wykonuje prowokacyjne gesty (Mind Games - psychologiczne gierki). Co robi?',
+    options: ['Psychologiczne gierki (Mind Games)','Celowe granie na emocje przeciwnika (Emotional Play)','Przedłużanie rytuałów serwisowych (Service Ritual Delay)'],
+    answer: 0,
+    explanation: 'Wywołuje frustrację i błędy poprzez prowokacje.'
+  },
+  {
+    question: 'Celowo przedłużasz czas przed serwisem przy piłce meczowej przeciwnika (Ice the Server - zimny serwis). Co stosujesz?',
+    options: ['Ice the Server (zimny serwis)','Toilet Break (przerwa na toaletę)','Udawanie zmęczenia (Fake Fatigue)'],
+    answer: 0,
+    explanation: 'Ice the Server zwiększa ryzyko błędów przy decydującym serwisie.'
+  }
+];
+
+let currentQuestionIndex = 0;
+let selectedAnswer = null;
+let score = 0;
+
+function updateScore() {
+  document.getElementById('score').textContent = `Punkty: ${score} / ${quizData.length}`;
+}
+
+function showQuestion() {
+  selectedAnswer = null;
+  document.getElementById('feedback').style.display = 'none';
+  document.getElementById('next-btn').style.display = 'none';
+  const submitBtn = document.getElementById('submit-btn');
+  submitBtn.disabled = true;
+  submitBtn.style.display = 'inline-block';
+
+  updateScore();
+
+  const questionObj = quizData[currentQuestionIndex];
+  document.getElementById('question').textContent = `Pytanie ${currentQuestionIndex + 1}: ${questionObj.question}`;
+
+  const optionsForm = document.getElementById('options-form');
+  optionsForm.innerHTML = '';
+
+  questionObj.options.forEach((option, index) => {
+    const label = document.createElement('label');
+    label.className = 'option';
+    label.innerHTML = `<input type="radio" name="option" value="${index}" /> ${option}`;
+    optionsForm.appendChild(label);
+  });
+
+  optionsForm.addEventListener('change', e => {
+    if (e.target.name === 'option') {
+      selectedAnswer = parseInt(e.target.value);
+      submitBtn.disabled = false;
+    }
+  }, { once: true });
+}
+
+function checkAnswer() {
+  const questionObj = quizData[currentQuestionIndex];
+  const feedbackDiv = document.getElementById('feedback');
+  const submitBtn = document.getElementById('submit-btn');
+  const nextBtn = document.getElementById('next-btn');
+
+  if (selectedAnswer === questionObj.answer) {
+    feedbackDiv.textContent = `Brawo! To poprawna odpowiedź.\n\n${questionObj.explanation}`;
+    feedbackDiv.className = 'feedback correct';
+    score++;
+  } else {
+    feedbackDiv.textContent = `Niestety, to niepoprawna odpowiedź.\n\nPoprawna to: "${questionObj.options[questionObj.answer]}".\n\n${questionObj.explanation}`;
+    feedbackDiv.className = 'feedback incorrect';
+  }
+
+  updateScore();
+  feedbackDiv.style.display = 'block';
+  submitBtn.style.display = 'none';
+  nextBtn.style.display = 'inline-block';
+}
+
+function nextQuestion() {
+  currentQuestionIndex++;
+  if (currentQuestionIndex >= quizData.length) {
+    showSummary();
+  } else {
+    showQuestion();
+  }
+}
+
+function showSummary() {
+  const quizContainer = document.getElementById('quiz-container');
+  const percentage = Math.round((score / quizData.length) * 100);
+  let message = '';
+  if (percentage === 100) message = 'Idealny wynik! Świetna robota!';
+  else if (percentage >= 80) message = 'Bardzo dobry wynik! Gratulacje!';
+  else if (percentage >= 50) message = 'Dobry wynik, ale jest jeszcze trochę do poprawy.';
+  else message = 'Może spróbuj jeszcze raz, na pewno się uda!';
+
+  quizContainer.innerHTML = `
+    <h2>Podsumowanie quizu</h2>
+    <p>Zdobyłeś/aś <strong>${score}</strong> punktów z <strong>${quizData.length}</strong> możliwych.</p>
+    <p>To <strong>${percentage}%</strong>.</p>
+    <p>${message}</p>
+    <button id="restart-btn">Spróbuj ponownie</button>
+  `;
+
+  document.getElementById('restart-btn').addEventListener('click', () => {
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
+    document.getElementById('quiz-container').innerHTML = `
+      <div id="score">Punkty: 0 / ${quizData.length}</div>
+      <div id="question" class="question"></div>
+      <form id="options-form"></form>
+      <button id="submit-btn" disabled>Sprawdź odpowiedź</button>
+      <div id="feedback" class="feedback" style="display:none;"></div>
+      <button id="next-btn" style="display:none;">Następne pytanie</button>
+    `;
+    document.getElementById('submit-btn').addEventListener('click', checkAnswer);
+    document.getElementById('next-btn').addEventListener('click', nextQuestion);
+    showQuestion();
+  });
+}
+
+document.getElementById('submit-btn').addEventListener('click', checkAnswer);
+document.getElementById('next-btn').addEventListener('click', nextQuestion);
+
+showQuestion();
+</script>
+
+</body>
+</html>

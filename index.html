@@ -91,61 +91,61 @@
 <script>
 const quizData = [
   {
-    question: 'Twój przeciwnik nagle bierze przerwę medyczną przy break-poincie (Medical Timeout - przerwa medyczna), choć wygląda na zdrowego. Co robi?',
+    question: 'Twój przeciwnik nagle bierze przerwę medyczną przy break-poincie , choć wygląda na zdrowego. Co robi?',
     options: ['Medical Timeout (przerwa medyczna)','Toilet Break (przerwa na toaletę)','Przedłużanie rytuałów serwisowych (Service Ritual Delay)'],
     answer: 0,
-    explanation: 'Medical Timeout pozwala na odpoczynek i wybić przeciwnika z rytmu.'
+    explanation: 'Medical Timeout pozwala przerwać dobrą passę rywala, pozwala na odpoczynek i wybić przeciwnika z rytmu.'
   },
   {
-    question: 'Przeciwnik wychodzi po przegranym secie na kilka minut do toalety (Toilet Break - przerwa na toaletę), po powrocie gra agresywniej. Co stosuje?',
+    question: 'Przeciwnik wychodzi po przegranym secie na kilka minut do toalety - jak "Rakieta", po powrocie gra agresywniej. Co stosuje?',
     options: ['Toilet Break (przerwa na toaletę)','Ice the Server (zimny serwis)','Psychologiczne gierki (Mind Games)'],
     answer: 0,
-    explanation: 'Toilet Break daje reset mentalny i może zmienić momentum meczu.'
+    explanation: 'Toilet Break daje reset mentalny, rozprosza przeciwnika i może zmienić momentum meczu.'
   },
   {
-    question: 'Przeciwnik bardzo długo przygotowuje się do serwisu, poprawia ręcznik i układa butelkę (Service Ritual Delay - przedłużanie rytuałów serwisowych). Co robi?',
+    question: 'Przeciwnik bardzo długo przygotowuje się do serwisu, poprawia ręcznik i układa butelkę . Co robi?',
     options: ['Przedłużanie rytuałów serwisowych (Service Ritual Delay)','Udawanie zmęczenia (Fake Fatigue)','Celowe granie na emocje przeciwnika (Emotional Play)'],
     answer: 0,
     explanation: 'Przedłużanie rytuałów spowalnia grę i narzuca własny rytm.'
   },
   {
-    question: 'Przeciwnik prosi o nową rakietę po kilku przegranych gemach (Equipment Change - zmiana sprzętu), choć sprzęt jest w porządku. Co robi?',
+    question: 'Przeciwnik prosi o nową rakietę po kilku przegranych gemach , choć sprzęt jest w porządku. Co robi?',
     options: ['Zmiany sprzętowe (Equipment Change)','Dyskusje z sędzią (Arguing with Referee)','Ice the Server (zimny serwis)'],
     answer: 0,
     explanation: 'Zmiana sprzętu daje krótką przerwę i przerwanie pasma przeciwnika.'
   },
   {
-    question: 'Przeciwnik stosuje moonballe, slice’y i drop-shoty, gdy jesteś zdenerwowany (Emotional Play - gra na emocjach). Co robi?',
+    question: 'Przeciwnik stosuje moonballe (baloniki), slice’y i drop-shoty (skróty), gdy jesteś zdenerwowany (Emotional Play - gra na emocjach). Co robi?',
     options: ['Celowe granie na emocje przeciwnika (Emotional Play)','Udawanie zmęczenia (Fake Fatigue)','Psychologiczne gierki (Mind Games)'],
     answer: 0,
-    explanation: 'Taktyka wywołuje frustrację i zmusza do błędów.'
+    explanation: 'Taktyka wywołuje frustrację u przeciwnikia i zmusza przeciwnika do błędów.'
   },
   {
-    question: 'Przeciwnik dyskutuje z sędzią o każdym punkcie (Arguing with Referee - dyskusje z sędzią). Co robi?',
+    question: 'Przeciwnik dyskutuje z sędzią o każdym punkcie . Co robi?',
     options: ['Dyskusje z sędzią (Arguing with Referee)','Ice the Server (zimny serwis)','Psychologiczne gierki (Mind Games)'],
     answer: 0,
-    explanation: 'Zakłóca rytm i koncentrację przeciwnika.'
+    explanation: 'Zakłóca rytm, wywołuje frustrację u przeciwnikia, przerywa jego dobrą passę i koncentrację przeciwnika.'
   },
   {
-    question: 'Przeciwnik zwleka między punktami, wyciera ręcznik i wolno chodzi (Slowing Down - spowalnianie gry). Co stosuje?',
+    question: 'Przeciwnik zwleka między punktami, wyciera ręcznik i wolno chodzi . Co stosuje?',
     options: ['Spowalnianie gry pomiędzy punktami (Slowing Down)','Udawanie zmęczenia (Fake Fatigue)','Przedłużanie rytuałów serwisowych (Service Ritual Delay)'],
     answer: 0,
     explanation: 'Spowalnianie gry zmienia rytm przeciwnika i zwiększa presję.'
   },
   {
-    question: 'Przeciwnik udaje zmęczenie po wymianach, potem przyspiesza w ważnym punkcie (Fake Fatigue - udawanie zmęczenia). Co robi?',
+    question: 'Przeciwnik udaje zmęczenie po wymianach, potem przyspiesza w ważnym punkcie. Co robi?',
     options: ['Udawanie zmęczenia lub bólu (Fake Fatigue)','Psychologiczne gierki (Mind Games)','Ice the Server (zimny serwis)'],
     answer: 0,
     explanation: 'Uśpienie czujności przeciwnika i zaskoczenie w kluczowym momencie.'
   },
   {
-    question: 'Przeciwnik patrzy Ci w oczy i wykonuje prowokacyjne gesty (Mind Games - psychologiczne gierki). Co robi?',
+    question: 'Przeciwnik patrzy Ci w oczy i wykonuje prowokacyjne gesty . Co robi?',
     options: ['Psychologiczne gierki (Mind Games)','Celowe granie na emocje przeciwnika (Emotional Play)','Przedłużanie rytuałów serwisowych (Service Ritual Delay)'],
     answer: 0,
     explanation: 'Wywołuje frustrację i błędy poprzez prowokacje.'
   },
   {
-    question: 'Celowo przedłużasz czas przed serwisem przy piłce meczowej przeciwnika (Ice the Server - zimny serwis). Co stosujesz?',
+    question: 'Celowo przedłużasz czas przed serwisem przy podaniu przeciwnika - jak "Rakieta". Co stosujesz?',
     options: ['Ice the Server (zimny serwis)','Toilet Break (przerwa na toaletę)','Udawanie zmęczenia (Fake Fatigue)'],
     answer: 0,
     explanation: 'Ice the Server zwiększa ryzyko błędów przy decydującym serwisie.'
